@@ -8,10 +8,11 @@ import {
   Tag,
 } from "@blueprintjs/core";
 import { useState } from "react";
+import useLocalStorage from "./useLocalStorage";
 
 function App() {
   const [userInput, setUserInput] = useState("");
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useLocalStorage("todo-items", []);
 
   const addItem = (e) => {
     e.preventDefault();
@@ -41,7 +42,7 @@ function App() {
   return (
     <div className="App">
       <Card elevation={Elevation.TWO}>
-        <h2 className="heading">To-Do List</h2>
+        <h2 className="heading">To-do List</h2>
         <form onSubmit={addItem}>
           <ControlGroup fill={true} vertical={false}>
             <InputGroup
@@ -58,6 +59,7 @@ function App() {
               key={index + item.name}
               large
               minimal
+              multiline
               onRemove={() => deleteTask(index)}
             >
               <Checkbox
